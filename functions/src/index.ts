@@ -1,26 +1,44 @@
 import * as functions from "firebase-functions";
-// import * as cors from "cors";
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   response.set("Access-Control-Allow-Origin", "*");
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const axios = require('axios').default;
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+import { Readability } from '@mozilla/readability';
 
-export const addMessage = functions.https.onCall((data, context) => {
-  functions.logger.info(data, {structuredData: true});
-  functions.logger.info(context, {structuredData: true});
-  return {"request_data": data};
+import domUtils from './dom_utils';
+
+
+export const readable = functions.https.onCall((data, context) => {
+  functions.logger.info(data, { structuredData: true });
+  functions.logger.info(context, { structuredData: true });
+
+  const url = decodeURIComponent("https://en.wikipedia.org/wiki/Portrait_of_a_Lady_on_Fire");
+
+  axios(url)
+    .then(async (response: { body: any; }) => {
+      const rawHtml = response.body;
+      const dirtyDom = new JSDOM(rawHtml);
+      const dirtyDocument = dirtyDom.window.document;
+
+      const reader = new Readability(dirtyDocument, {
+        keepClasses: false,
+        disableJSONLD: true,
+      });
+      let parsed = reader.parse();
+
+      let content = parsed?.content;
+      const cleanDom = new JSDOM(content);
+      const cleanDocument = cleanDom.window.document;
+
+      domUtils.domUtils.setNewTabForLinks(cleanDocument);
+      domUtils.domUtils.setHostForAnchorLinks(cleanDocument);
+      domUtils.domUtils.setImageCaptionIdentifiers(cleanDocument);
+
+      return parsed;
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
+
+  // return { "request_dataxyz": data };
 });
-
-// export const fetchArticle = functions.https.onRequest((req, res) => {
-//   const options = {
-//     origin: "https://read.best",
-//   };
-//   cors(options)(req, res, () => {
-//     res.status(200).send({});
-//   });
-// });
