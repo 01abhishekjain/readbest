@@ -14,12 +14,11 @@ import domUtils from "./dom_utils";
 
 
 export const readable = functions.https.onCall((data, context) => {
-  functions.logger.info(data, {structuredData: true});
-  functions.logger.info(context, {structuredData: true});
+  functions.logger.info(data.text, {structuredData: true});
 
-  const url = decodeURIComponent("https://www.gsmarena.com/popular_ridehailing_app_bolt_gets_petal_maps_integration-news-52369.php");
+  const url = new URL(data.text.substr(1));
 
-  return axios(url)
+  return axios(url.toString())
       .then(async (response: { data: string; }) => {
         const rawHtml = response.data;
         const dirtyDom = new JSDOM(rawHtml);
@@ -38,6 +37,9 @@ export const readable = functions.https.onCall((data, context) => {
         domUtils.domUtils.setNewTabForLinks(cleanDocument);
         domUtils.domUtils.setHostForAnchorLinks(cleanDocument);
         domUtils.domUtils.setImageCaptionIdentifiers(cleanDocument);
+        domUtils.domUtils.convertRelToAbs(cleanDocument, url.origin);
+
+        if (parsed) parsed.content = cleanDom.serialize();
 
         return parsed;
       })

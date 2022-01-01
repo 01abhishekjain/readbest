@@ -20,6 +20,14 @@ const domUtils = {
       }
     });
   },
+  convertRelToAbs(document: Document, origin: string): void {
+    document.title = "xxx";
+    document.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+      if (img.src.startsWith("/")) {
+        img.setAttribute("src", origin + img.src);
+      }
+    });
+  },
 };
 
 export default {domUtils};

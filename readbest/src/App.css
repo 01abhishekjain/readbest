@@ -1,38 +1,133 @@
-.App {
-  text-align: center;
+body {
+	overflow-x: hidden;
+
+	/* font-family: 'Vollkorn', serif; */
+	/* font-family: 'EB Garamond'; */
+	font-family: 'Source Serif Pro', serif;
+
+	font-size: 18px;
+	line-height: 1.5em;
+	color: #333;
+
+	/* background: url(https://via.placeholder.com/5x27.png/FFFFFF/000000%20C/O%20https://placeholder.com/?text=%20-);
+	background-position-y: -15px; */
+}
+body::-webkit-scrollbar {
+	display: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+p,
+table {
+	font-size: 1em; /* 18px */
+	line-height: 1.5em;
+	margin-bottom: 1.5em;
+}
+h1 {
+	font-size: 1.5em; /* 36px */
+	line-height: 1em;
+	font-weight: 600;
+	margin-bottom: 1em;
+}
+h2 {
+	font-size: 1.3333em; /* 24px */
+	font-weight: 600;
+	line-height: 1.125em;
+	padding-top: calc(3 / 4 * 1.125em);
+	margin-bottom: calc(1 / 4 * 1.125em);
+}
+h3 {
+	font-size: 1.2222em; /* 22px */
+	font-weight: 600;
+	line-height: 1.2273em;
+	padding-top: calc(3 / 4 * 1.2273em);
+	margin-bottom: calc(1 / 4 * 1.2273em);
+}
+h4 {
+	font-size: 1em; /* 18px */
+	font-weight: 600;
+	line-height: 1.5em;
+	padding-top: calc(3 / 4 * 1.5em);
+	margin-bottom: calc(1 / 4 * 1.5em);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.article-container {
+	padding: calc(2 * 1.5em);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.title,
+.author {
+	font-family: 'Source Sans Pro', sans-serif;
+	color: #424242;
+
+	text-align: center;
+}
+.author {
+	color: #9e9e9e;
+	margin-top: 0;
+	margin-bottom: 3em;
+}
+.author-name {
+	font-weight: 600;
 }
 
-.App-link {
-  color: #61dafb;
+a,
+a:visited,
+a:hover,
+a:active,
+a:focus,
+a:link {
+	text-decoration: none;
+	border-bottom: 1px solid var(--color-textHover);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p#image-container {
+	margin-top: 1.5em;
+}
+img {
+	width: auto;
+	height: auto;
+	display: flex;
+	margin: 0 auto;
+	border-radius: 8px;
+	max-width: 80%;
+	box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+}
+/* https://thebulletin.org/2021/05/the-origin-of-covid-did-people-or-nature-open-pandoras-box-at-wuhan/ */
+/* p > figure > picture > img {
+	margin-bottom: 1.5em;
+} */
+#image-caption,
+figcaption {
+	display: flex;
+	word-break: break-word;
+
+	font-size: 0.7778em; /* 14px */
+	line-height: 1.9286em;
+	font-family: 'Source Sans Pro', sans-serif;
+
+	color: #757575;
+
+	text-align: center;
+
+	margin-bottom: 1.9286em;
+}
+strong {
+	font-weight: 600;
+}
+
+@media (max-width: 640px) {
+	.article-container {
+		padding: calc(1 * 1.5em);
+	}
+	img {
+		left: 50%;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		max-width: 100vw;
+		position: relative;
+		right: 50%;
+		width: 100vw;
+		border-radius: 0;
+		box-shadow: none;
+	}
 }

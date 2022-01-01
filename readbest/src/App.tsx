@@ -1,5 +1,5 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import './reset.css';
 import './App.css';
 
 import { initializeApp, getApp } from 'firebase/app';
@@ -25,38 +25,57 @@ const app = initializeApp(firebaseConfig);
 console.log(app.name);
 
 function Main() {
+	const url = window.location.pathname;
+	const [article, setArticle] = useState<Article>();
+
+	useEffect(() => {
+		fetchReadableArticle(url).then((article) => {
+			setArticle(article);
+		});
+	}, [url]);
+
+	/* <div
+			/> */
+
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload. edit
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				<button onClick={test}>test</button>
-			</header>
+		<div>
+			<div className="article-container">
+				<h1 className="title">{article?.title}</h1>
+				{article?.byline ? (
+					<p className="author">
+						By <span className="author-name">{article?.byline}</span>
+					</p>
+				) : (
+					''
+				)}
+				<div
+					dangerouslySetInnerHTML={{
+						__html: article?.content || 'xxx could not fetch readable article',
+					}}
+				/>
+			</div>
 		</div>
 	);
 }
 
-function test() {
+async function fetchReadableArticle(url: String): Promise<Article> {
 	const functions = getFunctions(getApp());
-	connectFunctionsEmulator(functions, 'localhost', 5001);
+	// connectFunctionsEmulator(functions, 'localhost', 5001);
 
-	const readable = httpsCallable(functions, 'readable');
-	readable({ text: window.location.pathname }).then((result) => {
-		// Read result of the Cloud Function.
-		/** @type {any} */
-		const data = result.data;
-		console.log('data: ', data);
-	});
+	const readable = httpsCallable<{}, Article>(functions, 'readable');
+	const result = await readable({ text: url });
+	const article = result.data;
+	console.log(article);
+	return article;
+}
+
+interface Article {
+	byline: string;
+	content: string;
+	excerpt: string;
+	siteName: string;
+	textContent: string;
+	title: string;
 }
 
 export default Main;
