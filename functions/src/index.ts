@@ -12,22 +12,17 @@ import {Readability} from "@mozilla/readability";
 // own
 import domUtils from "./dom_utils";
 
-
 export const readable = functions.https.onCall((data, context) => {
-  functions.logger.info(data.text, {structuredData: true});
-
   const url = new URL(data.text.substr(1));
+  functions.logger.info("Requested: "+url.toString());
 
   return axios(url.toString())
       .then(async (response: { data: string; }) => {
         const rawHtml = response.data;
-        const dirtyDom = new JSDOM(rawHtml);
+        const dirtyDom = new JSDOM(rawHtml, {url: url.toString()});
         const dirtyDocument = dirtyDom.window.document;
 
-        const reader = new Readability(dirtyDocument, {
-          keepClasses: false,
-          disableJSONLD: true,
-        });
+        const reader = new Readability(dirtyDocument);
         const parsed = reader.parse();
 
         const content = parsed?.content;
@@ -35,17 +30,16 @@ export const readable = functions.https.onCall((data, context) => {
         const cleanDocument = cleanDom.window.document;
 
         domUtils.domUtils.setNewTabForLinks(cleanDocument);
-        domUtils.domUtils.setHostForAnchorLinks(cleanDocument);
         domUtils.domUtils.setImageCaptionIdentifiers(cleanDocument);
-        domUtils.domUtils.convertRelToAbs(cleanDocument, url.origin);
+        const faviconUrl = domUtils.domUtils.getFavicon(dirtyDocument);
 
-        if (parsed) parsed.content = cleanDom.serialize();
+        if (parsed) {
+          parsed.content = cleanDom.serialize();
+        }
 
-        return parsed;
+        return {...parsed, faviconUrl};
       })
       .catch((err: Error) => {
         console.log(err);
       });
-
-  // return { "request_dataxyz": data };
 });

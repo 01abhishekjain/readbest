@@ -21,12 +21,22 @@ const domUtils = {
     });
   },
   convertRelToAbs(document: Document, origin: string): void {
-    document.title = "xxx";
     document.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
       if (img.src.startsWith("/")) {
         img.setAttribute("src", origin + img.src);
       }
     });
+  },
+  getFavicon(document: Document): string {
+    const nodeList = document.getElementsByTagName("link");
+    const node = Array.from(nodeList).find(
+        (node) => {
+          const identifiers = ["shortcut icon", "icon"];
+          const rel = node.getAttribute("rel");
+          return rel && identifiers.includes(rel);
+        });
+
+    return node?.getAttribute("href") || "";
   },
 };
 

@@ -9,6 +9,8 @@ import {
 	connectFunctionsEmulator,
 } from 'firebase/functions';
 
+import utils from './utils';
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyBSPRXDQYR4eRRQHHKKJab62taIxh5LVtA',
 	authDomain: 'readbest-9b54d.firebaseapp.com',
@@ -31,6 +33,8 @@ function Main() {
 	useEffect(() => {
 		fetchReadableArticle(url).then((article) => {
 			setArticle(article);
+			document.title = article.title;
+			utils.setFavicon(document, article.faviconUrl);
 		});
 	}, [url]);
 
@@ -60,15 +64,12 @@ function Main() {
 
 async function fetchReadableArticle(url: String): Promise<Article> {
 	const functions = getFunctions(getApp());
-	// connectFunctionsEmulator(functions, 'localhost', 5001);
+	connectFunctionsEmulator(functions, 'localhost', 5001);
 
 	const readable = httpsCallable<{}, Article>(functions, 'readable');
 	const result = await readable({ text: url });
-	const article = result.data;
-	console.log(article);
-	return article;
+	return result.data;
 }
-
 interface Article {
 	byline: string;
 	content: string;
@@ -76,6 +77,7 @@ interface Article {
 	siteName: string;
 	textContent: string;
 	title: string;
+	faviconUrl: string;
 }
 
 export default Main;
