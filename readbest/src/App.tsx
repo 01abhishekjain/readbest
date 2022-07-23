@@ -11,6 +11,7 @@ import {
 
 import utils from './utils';
 
+// Initialize Firebase
 const firebaseConfig = {
 	apiKey: 'AIzaSyBSPRXDQYR4eRRQHHKKJab62taIxh5LVtA',
 	authDomain: 'readbest-9b54d.firebaseapp.com',
@@ -21,8 +22,6 @@ const firebaseConfig = {
 	appId: '1:443033354296:web:07acdb75b5a74ad3bd66cd',
 	measurementId: 'G-83QWE7E8SN',
 };
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 console.log(app.name);
 
@@ -37,9 +36,6 @@ function Main() {
 			utils.setFavicon(document, article.faviconUrl);
 		});
 	}, [url]);
-
-	/* <div
-			/> */
 
 	return (
 		<div>
@@ -64,7 +60,9 @@ function Main() {
 
 async function fetchReadableArticle(url: String): Promise<Article> {
 	const functions = getFunctions(getApp());
-	connectFunctionsEmulator(functions, 'localhost', 5001);
+	if (window.location.host === 'localhost') {
+		connectFunctionsEmulator(functions, 'localhost', 5001);
+	}
 
 	const readable = httpsCallable<{}, Article>(functions, 'readable');
 	const result = await readable({ text: url });
