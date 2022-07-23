@@ -7,7 +7,7 @@ const domUtils = {
   setHostForAnchorLinks(document: Document):void {
     const pattern = "a[href^=\"#\"]";
     document.querySelectorAll<HTMLAnchorElement>(pattern).forEach((link) => {
-      link.href = "about:srcdoc" + link.hash;
+      link.href = link.hash;
     });
   },
   setImageCaptionIdentifiers(document: Document): void {
