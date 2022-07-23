@@ -12,9 +12,6 @@ body {
 	/* background: url(https://via.placeholder.com/5x27.png/FFFFFF/000000%20C/O%20https://placeholder.com/?text=%20-);
 	background-position-y: -15px; */
 }
-body::-webkit-scrollbar {
-	display: none;
-}
 
 p,
 table {
