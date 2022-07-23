@@ -54,7 +54,7 @@ function Main() {
 				)}
 				<div
 					dangerouslySetInnerHTML={{
-						__html: article?.content || 'xxx could not fetch readable article',
+						__html: article?.content || 'Loading page...',
 					}}
 				/>
 			</div>
