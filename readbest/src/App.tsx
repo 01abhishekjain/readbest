@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './reset.css';
 import './App.css';
+import './hero.css';
 
 import { initializeApp, getApp } from 'firebase/app';
 import {
@@ -37,25 +38,73 @@ function Main() {
 		});
 	}, [url]);
 
-	return (
-		<div>
-			<div className="article-container">
-				<h1 className="title">{article?.title}</h1>
-				{article?.byline ? (
-					<p className="author">
-						By <span className="author-name">{article?.byline}</span>
-					</p>
-				) : (
-					''
-				)}
-				<div
-					dangerouslySetInnerHTML={{
-						__html: article?.content || 'Loading page...',
-					}}
-				/>
+	if (article) {
+		return (
+			<div>
+				<div className="article-container">
+					<h1 className="title">{article?.title}</h1>
+					{article?.byline ? (
+						<p className="author">
+							By <span className="author-name">{article?.byline}</span>
+						</p>
+					) : (
+						''
+					)}
+					<div
+						dangerouslySetInnerHTML={{
+							__html: article?.content || 'Loading page...',
+						}}
+					/>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	} else {
+		return (
+			<div className="hero">
+				<div className="hero__container">
+					<div className="hero__domain">
+						<span className="hero__domain--fake">/https://n.pr/3J4EpSn</span>
+						<a
+							href="https://read.best/https://n.pr/3J4EpSn"
+							target="_blank"
+							rel="noreferrer"
+							className="hero__domain--host"
+						>
+							read.best
+						</a>
+						<a
+							href="https://read.best/https://n.pr/3J4EpSn"
+							target="_blank"
+							rel="noreferrer"
+							className="hero__domain--path"
+						>
+							/https://n.pr/3J4EpSn
+						</a>
+					</div>
+					<div className="hero__title">
+						The <span>best</span> way to <span>read</span> the web{' '}
+						<span>!</span>
+					</div>
+					<div className="hero__subtitle">
+						Simply{' '}
+						<span
+							onMouseOver={function () {
+								const elem = document.querySelector('.hero__domain');
+								elem?.classList.add('link');
+							}}
+							onMouseOut={function () {
+								const elem = document.querySelector('.hero__domain');
+								elem?.classList.remove('link');
+							}}
+						>
+							prepend
+						</span>{' '}
+						this domain to any web link to get the best reading experience.
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
 async function fetchReadableArticle(url: String): Promise<Article> {
