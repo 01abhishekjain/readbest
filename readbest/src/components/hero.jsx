@@ -22,7 +22,7 @@ function Hero() {
 					</a>
 				</div>
 				<div className="hero__title">
-					The <span>best</span> way to <span>read</span> the web <span>!</span>
+					The <span>best</span> way to <span>read</span> online <span>!</span>
 				</div>
 				<div className="hero__subtitle">
 					Simply{' '}
