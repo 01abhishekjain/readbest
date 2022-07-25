@@ -67,6 +67,7 @@
 .hero__domain--host:hover,
 .hero__domain--host:hover ~ .hero__domain--path,
 .hero__domain--path:hover,
+.hero__domain--path:focus,
 .link .hero__domain--path {
 	cursor: pointer;
 	color: #333333;
@@ -121,5 +122,9 @@
 }
 .hero__subtitle span {
 	text-decoration: underline;
+	text-decoration-thickness: from-font;
 	font-style: unset;
+}
+.hero__subtitle span:hover {
+	cursor: ne-resize;
 }
