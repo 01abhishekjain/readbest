@@ -1,3 +1,17 @@
+@keyframes hero-visible {
+	0% {
+		transform: translateY(5em);
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
 .hero {
 	height: 100vh;
 	display: flex;
@@ -10,6 +24,7 @@
 		#e0e0e0 100%
 	);
 	overflow: hidden;
+	animation: hero-visible 1s ease-in-out;
 }
 @media (max-width: 640px) {
 	.hero {
