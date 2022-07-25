@@ -64,14 +64,16 @@
 	color: #f5f5f5;
 	transition: color 0.5s ease;
 }
-.hero__domain--host:hover,
 .hero__domain--host:hover ~ .hero__domain--path,
+.hero__domain:hover,
 .hero__domain--path:hover,
 .hero__domain--path:focus,
-.link .hero__domain--path {
+.link .hero__domain--path,
+.link .hero__domain--host {
 	cursor: pointer;
 	color: #333333;
 	font-weight: bold;
+	text-decoration: underline;
 }
 
 /* Title */
@@ -121,8 +123,8 @@
 	}
 }
 .hero__subtitle span {
-	text-decoration: underline;
-	text-decoration-thickness: from-font;
+	text-decoration: underline 0px wavy;
+	text-decoration-thickness: 1px;
 	font-style: unset;
 }
 .hero__subtitle span:hover {

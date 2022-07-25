@@ -2,7 +2,7 @@ function Hero() {
 	return (
 		<div className="hero">
 			<div className="hero__container">
-				<div className="hero__domain">
+				<div className="hero__domain" title="Click to see a sample">
 					<span className="hero__domain--fake">/https://n.pr/3J4EpSn</span>
 					<a
 						href="https://read.best/https://n.pr/3J4EpSn"
@@ -35,6 +35,7 @@ function Hero() {
 							const elem = document.querySelector('.hero__domain');
 							elem?.classList.remove('link');
 						}}
+						title="Try clicking the link above"
 					>
 						prepend
 					</span>{' '}
