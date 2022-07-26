@@ -60,11 +60,14 @@
 	visibility: hidden;
 	flex-shrink: 0;
 }
-.hero__domain__actual--container {
-	transition: transform 1s ease;
+.hero__domain__actual {
+	transition: opacity 1s ease;
+	width: 100%;
+	text-align: center;
 }
-.hero__domain__actual--container.highlight {
-	transform: translateX(-50%);
+.hero__domain__actual:hover .hero__domain__actual--path,
+.hero__domain__actual.highlight .hero__domain__actual--path {
+	position: static;
 }
 .hero__domain__actual--host {
 	font-weight: bold;
@@ -73,6 +76,7 @@
 .hero__domain__actual--path {
 	color: #f5f5f5;
 	transition: color 0.5s ease;
+	position: absolute;
 }
 
 .hero__domain__actual:hover .hero__domain__actual--host,
