@@ -24,7 +24,6 @@
 		#e0e0e0 100%
 	);
 	overflow: hidden;
-	animation: hero-visible 1s ease-in-out;
 }
 @media (max-width: 640px) {
 	.hero {
@@ -34,6 +33,7 @@
 .hero__container {
 	margin-top: -5em;
 	width: 100%;
+	animation: hero-visible 1s ease-in-out;
 }
 
 /* Domain */
@@ -45,7 +45,7 @@
 }
 @media (max-width: 640px) {
 	.hero__domain {
-		font-size: 4vw;
+		font-size: 5vw;
 	}
 }
 @media (min-width: 641px) {
@@ -87,7 +87,7 @@
 }
 @media (max-width: 640px) {
 	.hero__title {
-		font-size: 8vw;
+		font-size: 9vw;
 	}
 }
 @media (min-width: 641px) {
@@ -112,8 +112,8 @@
 }
 @media (max-width: 640px) {
 	.hero__subtitle {
-		font-size: 4vw;
-		margin-inline: 20vw;
+		font-size: 5vw;
+		margin-inline: 15vw;
 	}
 }
 @media (min-width: 641px) {
