@@ -3,23 +3,20 @@ function Hero() {
 		<div className="hero">
 			<div className="hero__container">
 				<div className="hero__domain" title="Click to see a sample">
-					<span className="hero__domain--fake">/https://n.pr/3J4EpSn</span>
-					<a
-						href="https://read.best/https://n.pr/3J4EpSn"
-						target="_blank"
-						rel="noreferrer"
-						className="hero__domain--host"
-					>
-						read.best
-					</a>
-					<a
-						href="https://read.best/https://n.pr/3J4EpSn"
-						target="_blank"
-						rel="noreferrer"
-						className="hero__domain--path"
-					>
-						/https://n.pr/3J4EpSn
-					</a>
+					<span className="hero__domain--fake"></span>
+					<span className="hero__domain__actual--container">
+						<a
+							href="https://read.best/https://n.pr/3J4EpSn"
+							target="_blank"
+							rel="noreferrer"
+							className="hero__domain__actual"
+						>
+							<span className="hero__domain__actual--host">read.best</span>
+							<span className="hero__domain__actual--path">
+								/https://n.pr/3J4EpSn
+							</span>
+						</a>
+					</span>
 				</div>
 				<div className="hero__title">
 					The <span>best</span> way to <span>read</span> online <span>!</span>
@@ -28,18 +25,22 @@ function Hero() {
 					Simply{' '}
 					<span
 						onMouseOver={function () {
-							const elem = document.querySelector('.hero__domain');
-							elem?.classList.add('link');
+							const elem = document.querySelector(
+								'.hero__domain__actual--container'
+							);
+							elem?.classList.add('highlight');
 						}}
 						onMouseOut={function () {
-							const elem = document.querySelector('.hero__domain');
-							elem?.classList.remove('link');
+							const elem = document.querySelector(
+								'.hero__domain__actual--container'
+							);
+							elem?.classList.remove('highlight');
 						}}
 						title="Try clicking the link above"
 					>
-						prepend
+						append
 					</span>{' '}
-					this domain to any web link to get the best reading experience.
+					any web link to this domain to get the best reading experience.
 				</div>
 			</div>
 		</div>
