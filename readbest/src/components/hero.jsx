@@ -1,6 +1,20 @@
-function Hero() {
+import React from 'react';
+
+function Hero({ url }) {
+	const appendElemEventAttr = {};
+	if (!url) {
+		appendElemEventAttr.onMouseOver = function () {
+			const elem = document.querySelector('.hero__domain__actual');
+			elem?.classList.add('highlight');
+		};
+		appendElemEventAttr.onMouseOut = function () {
+			const elem = document.querySelector('.hero__domain__actual');
+			elem?.classList.remove('highlight');
+		};
+	}
+
 	return (
-		<div className="hero">
+		<div className={`hero ${url ? '' : 'no-url'}`}>
 			<div className="hero__container">
 				<div className="hero__domain" title="Click to see a sample">
 					<a
@@ -10,30 +24,33 @@ function Hero() {
 						className="hero__domain__actual"
 					>
 						<span className="hero__domain__actual--host">read.best</span>
-						<span className="hero__domain__actual--path">
-							/https://n.pr/3J4EpSn
-						</span>
+						{url ? (
+							''
+						) : (
+							<span className="hero__domain__actual--path">
+								/https://n.pr/3J4EpSn
+							</span>
+						)}
 					</a>
 				</div>
 				<div className="hero__title">
 					The <span>best</span> way to <span>read</span> online <span>!</span>
 				</div>
 				<div className="hero__subtitle">
-					Simply{' '}
-					<span
-						onMouseOver={function () {
-							const elem = document.querySelector('.hero__domain__actual');
-							elem?.classList.add('highlight');
-						}}
-						onMouseOut={function () {
-							const elem = document.querySelector('.hero__domain__actual');
-							elem?.classList.remove('highlight');
-						}}
-						title="Try clicking the link above"
-					>
-						append
-					</span>{' '}
-					any web link to this domain to get the best reading experience.
+					{url ? (
+						<span>Loading {url}</span>
+					) : (
+						<React.Fragment>
+							Simply{' '}
+							<span
+								{...appendElemEventAttr}
+								title="Try clicking the link above"
+							>
+								append
+							</span>{' '}
+							any web link to this domain to get the best reading experience.
+						</React.Fragment>
+					)}
 				</div>
 			</div>
 		</div>

@@ -32,15 +32,21 @@ const app = initializeApp(firebaseConfig);
 console.log(app.name);
 
 function Main() {
-	const url = window.location.pathname;
+	let url = window.location.pathname;
+	if (url[0] === '/') url = url.substring(1);
+
 	const [article, setArticle] = useState<Article>();
 
 	useEffect(() => {
-		fetchReadableArticle(url).then((article) => {
-			setArticle(article);
-			document.title = article.title;
-			utils.setFavicon(document, article.faviconUrl);
-		});
+		const isValidUrl = utils.isValidHttpUrl(url);
+		if (isValidUrl) {
+			fetchReadableArticle(url).then((article) => {
+				if (!article) return;
+				setArticle(article);
+				document.title = article.title;
+				utils.setFavicon(document, article.faviconUrl);
+			});
+		}
 	}, [url]);
 
 	if (article) {
@@ -64,13 +70,13 @@ function Main() {
 			</div>
 		);
 	} else {
-		return <Hero />;
+		return <Hero url={utils.isValidHttpUrl(url) && url} />;
 	}
 }
 
 async function fetchReadableArticle(url: String): Promise<Article> {
 	const functions = getFunctions(getApp());
-	if (window.location.host === 'localhost') {
+	if (window.location.hostname === 'localhost') {
 		connectFunctionsEmulator(functions, 'localhost', 5001);
 	}
 

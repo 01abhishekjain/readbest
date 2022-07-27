@@ -70,12 +70,12 @@
 	transition: color 2s ease;
 	position: absolute;
 }
-.hero__domain:hover .hero__domain__actual--host,
-.hero__domain:hover .hero__domain__actual--path,
-.hero__domain__actual:focus .hero__domain__actual--host,
-.hero__domain__actual:focus .hero__domain__actual--path,
-.highlight .hero__domain__actual--path,
-.highlight .hero__domain__actual--host {
+.no-url .hero__domain:hover .hero__domain__actual--host,
+.no-url .hero__domain:hover .hero__domain__actual--path,
+.no-url .hero__domain__actual:focus .hero__domain__actual--host,
+.no-url .hero__domain__actual:focus .hero__domain__actual--path,
+.no-url .highlight .hero__domain__actual--path,
+.no-url .highlight .hero__domain__actual--host {
 	cursor: pointer;
 	color: #333333;
 	font-weight: bold;
@@ -128,11 +128,11 @@
 		margin-inline: 30vw;
 	}
 }
-.hero__subtitle span {
+.no-url .hero__subtitle span {
 	text-decoration: underline 0px wavy;
 	text-decoration-thickness: 1px;
 	font-style: unset;
 }
-.hero__subtitle span:hover {
+.no-url .hero__subtitle span:hover {
 	cursor: ne-resize;
 }
