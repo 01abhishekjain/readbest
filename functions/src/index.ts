@@ -12,7 +12,7 @@ import {Readability} from "@mozilla/readability";
 import domUtils from "./dom_utils";
 
 export const readable = functions.https.onCall((data, context) => {
-  const url = new URL(data.text.substr(1));
+  const url = new URL(data.text);
   functions.logger.info("Requested: "+url.toString());
 
   return axios(url.toString())
