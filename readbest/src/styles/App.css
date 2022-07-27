@@ -119,6 +119,7 @@ strong {
 @media (max-width: 640px) {
 	.article-container {
 		padding: calc(1 * 1.5em);
+		animation: show 1s ease-in-out;
 	}
 	img {
 		left: 50%;
