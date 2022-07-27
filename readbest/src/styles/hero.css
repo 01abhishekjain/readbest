@@ -66,16 +66,20 @@
 	color: #333333;
 }
 .hero__domain__actual--path {
+	display: none;
+}
+.hero--nourl .hero__domain__actual--path {
+	display: unset;
 	color: #f5f5f5;
 	transition: color 2s ease;
 	position: absolute;
 }
-.no-url .hero__domain:hover .hero__domain__actual--host,
-.no-url .hero__domain:hover .hero__domain__actual--path,
-.no-url .hero__domain__actual:focus .hero__domain__actual--host,
-.no-url .hero__domain__actual:focus .hero__domain__actual--path,
-.no-url .highlight .hero__domain__actual--path,
-.no-url .highlight .hero__domain__actual--host {
+.hero--nourl .hero__domain:hover .hero__domain__actual--host,
+.hero--nourl .hero__domain:hover .hero__domain__actual--path,
+.hero--nourl .hero__domain__actual:focus .hero__domain__actual--host,
+.hero--nourl .hero__domain__actual:focus .hero__domain__actual--path,
+.hero--nourl .highlight .hero__domain__actual--path,
+.hero--nourl .highlight .hero__domain__actual--host {
 	cursor: pointer;
 	color: #333333;
 	font-weight: bold;
@@ -111,6 +115,12 @@
 
 /* Subitle */
 .hero__subtitle {
+	display: none;
+}
+.hero--nourl .hero__subtitle {
+	display: block;
+}
+.hero__subtitle {
 	font-weight: unset;
 	line-height: normal;
 	color: #4f4f4f;
@@ -128,11 +138,38 @@
 		margin-inline: 30vw;
 	}
 }
-.no-url .hero__subtitle span {
+.hero__subtitle span {
 	text-decoration: underline 0px wavy;
 	text-decoration-thickness: 1px;
 	font-style: unset;
 }
-.no-url .hero__subtitle span:hover {
+.hero__subtitle span:hover {
 	cursor: ne-resize;
+}
+
+/* Loading indicator */
+.hero--nourl .loading-indicator {
+	display: none;
+}
+.loading-indicator {
+	display: block;
+	font-size: 3vw;
+	color: #4f4f4f;
+	margin-inline: 15vw;
+	line-height: normal;
+}
+.loading-indicator span:last-of-type {
+	margin-inline-start: 5px;
+	animation: loading 2s ease-in infinite;
+}
+@keyframes loading {
+	0% {
+		opacity: 0.25;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.25;
+	}
 }
