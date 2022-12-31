@@ -4,6 +4,7 @@ html {
 
 body {
 	overflow-x: hidden;
+	overflow-y: hidden;
 
 	/* font-family: 'Vollkorn', serif; */
 	/* font-family: 'EB Garamond'; */
@@ -52,7 +53,17 @@ h4 {
 }
 
 .article-container {
-	padding: calc(2 * 1.5em);
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.article-container > div {
+	overflow-y: hidden;
+}
+
+.title {
+	padding-top: 2em;
 }
 
 .title,
@@ -69,6 +80,20 @@ h4 {
 }
 .author-name {
 	font-weight: 600;
+}
+
+.page {
+	height: 100%;
+}
+
+.page > section {
+	height: 100%;
+}
+.page > section > article {
+	column-count: 4;
+	overflow-x: scroll;
+	height: 100%;
+	padding-inline: 3em;
 }
 
 a,
@@ -117,10 +142,34 @@ strong {
 }
 
 @media (max-width: 640px) {
+	body {
+		overflow-y: unset;
+	}
 	.article-container {
 		padding: calc(1 * 1.5em);
 		animation: show 1s ease-in-out;
+		height: unset;
+		display: block;
 	}
+	.article-container > div {
+		overflow-y: unset;
+	}
+	.title {
+		padding-top: unset;
+	}
+	.page {
+		height: unset;
+	}
+	.page > section {
+		height: unset;
+	}
+	.page > section > article {
+		column-count: unset;
+		overflow-x: unset;
+		height: unset;
+		padding-inline: unset;
+	}
+
 	img {
 		left: 50%;
 		margin-left: -50vw;
